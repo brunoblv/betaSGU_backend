@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Permissao {
+  DEV
+  SUP
+  ADM
+  USR
+}
+
+model Usuario {
+  id        String    @id @default(uuid())
+  nome      String
+  login     String    @unique
+  email     String    @unique
+  permissao Permissao @default(USR)
+  status    Int       @default(1)
+
+  ultimologin  DateTime @default(now())
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @default(now()) @updatedAt
+
+  @@map("usuarios")
+}
+
+model Servidor {
+               
+  cpID  BigInt @id @default(autoincrement())
+  cpRF String
+  cpNome String
+  cpVinculo String
+  cpEspecie String
+  cpInicio DateTime
+  cpTermino DateTime
+  cpCargo String
+  cpnomecargo2 String
+  cpRef String
+  cpUnid String
+  cpnomesetor2 String
+  cpRelJurAdm String
+  cpTipo_Evento String
+  cpInicio_Exerc String
+  cpTitular String
+  cpnumvinc_tit String
+  cpnomefunc_tit String
+  cpInicio_Rem DateTime
+  cpFim_Rem DateTime
+  cpObs String
+  cpVaga String
+}
